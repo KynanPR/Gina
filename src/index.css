@@ -1,14 +1,86 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "GinaDark";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(37% 0.044 257.287);
+  --color-base-200: oklch(30.42% 0.094 267.935);
+  --color-base-300: oklch(27% 0.041 260.031);
+  --color-base-content: oklch(98% 0.003 247.858);
+  --color-primary: oklch(70% 0.165 254.624);
+  --color-primary-content: oklch(12% 0.042 264.695);
+  --color-secondary: oklch(86% 0.127 207.078);
+  --color-secondary-content: oklch(12% 0.042 264.695);
+  --color-accent: oklch(63.35% 0.247 322.16);
+  --color-accent-content: oklch(12% 0.042 264.695);
+  --color-neutral: oklch(55.35% 0.188 265.638);
+  --color-neutral-content: oklch(98% 0.003 247.858);
+  --color-info: oklch(94% 0.129 101.54);
+  --color-info-content: oklch(12% 0.042 264.695);
+  --color-success: oklch(76% 0.177 163.223);
+  --color-success-content: oklch(12% 0.042 264.695);
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(12% 0.042 264.695);
+  --color-error: oklch(63% 0.237 25.331);
+  --color-error-content: oklch(12% 0.042 264.695);
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.28125rem;
+  --size-field: 0.28125rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "GinaLight";
+  default: false;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(% 0.022 252.894);
+  --color-base-200: oklch(95% 0.026 236.824);
+  --color-base-300: oklch(70% 0.04 256.788);
+  --color-base-content: oklch(12% 0.042 264.695);
+  --color-primary: oklch(70% 0.165 254.624);
+  --color-primary-content: oklch(12% 0.042 264.695);
+  --color-secondary: oklch(86% 0.127 207.078);
+  --color-secondary-content: oklch(12% 0.042 264.695);
+  --color-accent: oklch(0.595 0.2465 322.16);
+  --color-accent-content: oklch(92% 0.013 255.508);
+  --color-neutral: oklch(42.35% 0.188 265.638);
+  --color-neutral-content: oklch(98% 0.003 247.858);
+  --color-info: oklch(94% 0.129 101.54);
+  --color-info-content: oklch(12% 0.042 264.695);
+  --color-success: oklch(76% 0.177 163.223);
+  --color-success-content: oklch(12% 0.042 264.695);
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(12% 0.042 264.695);
+  --color-error: oklch(63% 0.237 25.331);
+  --color-error-content: oklch(12% 0.042 264.695);
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.28125rem;
+  --size-field: 0.28125rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+/* @custom-variant dark (&:where(.dark, .dark *)); */
+/* @custom-variant dark (&:where([data-theme=Gina-Dark], [data-theme=Gina-Dark] *)); */
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 400; */
 
-  color-scheme: light dark;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #e1dfdf;
+  /* color-scheme: light dark; */
+  /* color: rgba(0, 0, 0, 0.87); */
+  /* background-color: #e1dfdf; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
