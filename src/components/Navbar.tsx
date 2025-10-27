@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import ThemeToggler from "./ThemeToggler";
+import ScrollLink from "./ScrollLink";
 
 const Navbar = () => {
   return (
@@ -28,10 +28,13 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link to="/">Home</Link>
+              <ScrollLink to="/">Home</ScrollLink>
             </li>
             <li>
-              <Link to="/Contact">Contact</Link>
+              <ScrollLink to="/Contact">Contact</ScrollLink>
+            </li>
+            <li>
+              <ScrollLink to="/About">About</ScrollLink>
             </li>
           </ul>
         </div>
