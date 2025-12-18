@@ -70,6 +70,13 @@
   --depth: 1;
   --noise: 0;
 }
+
+@theme static {
+  --color-category-instrument: oklch(0.6926 0.1831 31.5);
+  --color-category-music: oklch(0.6463 0.1505 47.38);
+  --color-category-gig: oklch(0.8267 0.1554 92.91);
+}
+
 /* @custom-variant dark (&:where(.dark, .dark *)); */
 /* @custom-variant dark (&:where([data-theme=Gina-Dark], [data-theme=Gina-Dark] *)); */
 
