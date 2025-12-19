@@ -8,6 +8,7 @@ function About() {
         {/* <li className="p-4 pb-2 text-xs opacity-60 tracking-wide"></li> */}
 
         <li className="list-row">
+          <div className=""></div>
           <AboutSummaryCard
             title="About Gina"
             link="/AboutGina"
@@ -19,6 +20,7 @@ function About() {
           />
         </li>
         <li className="list-row">
+          <div className=""></div>
           <AboutSummaryCard
             title="About Music"
             link="/Contact"
