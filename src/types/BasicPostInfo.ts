@@ -1,4 +1,4 @@
-import type { PostCategory } from "./PostCategory";
+import type { PostCategory } from "./EntryCategory";
 
 export type BasicPostInfo = {
   postId?: string;

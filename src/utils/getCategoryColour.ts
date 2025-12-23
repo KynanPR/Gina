@@ -1,4 +1,4 @@
-import type { PostCategory } from "../types/PostCategory";
+import type { PostCategory } from "../types/EntryCategory";
 
 function getCategoryColour(category: PostCategory) {
   /*

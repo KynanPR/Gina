@@ -11,7 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import type { BasicPostInfo } from "../types/BasicPostInfo";
-import type { PostCategory } from "../types/PostCategory";
+import type { PostCategory } from "../types/EntryCategory";
 
 // Create a new post
 export const addPost = async (
