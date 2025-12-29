@@ -1,22 +1,28 @@
 import db from "../../src/firebase";
+import { getApp, deleteApp } from "firebase/app";
 import {
   addDoc,
   collection,
   deleteDoc,
   doc,
   getDocsFromServer,
+  setDoc,
 } from "firebase/firestore";
 
 import type { Collection } from "../../src/types/db/Collection";
 import type { Entry } from "../../src/types/entries";
+import musicSeedData from "./musicSeedData.ts";
 
 async function dropCollection(collectionName: Collection): Promise<boolean> {
   try {
     const collectionRef = collection(db, collectionName);
     const snapshot = await getDocsFromServer(collectionRef);
-    snapshot.docs.forEach(async (doc) => {
-      await deleteDoc(doc.ref);
-    });
+    const promises = Promise.all(
+      snapshot.docs.map((doc) => {
+        return deleteDoc(doc.ref);
+      })
+    );
+    await promises;
     console.log("All docs deleted from collection: ", collectionName);
 
     return true;
@@ -29,23 +35,38 @@ async function dropCollection(collectionName: Collection): Promise<boolean> {
     );
     throw error;
   }
-
-  return true;
 }
 
-async function seedCollection(
+async function seedCollection<Type extends Entry>(
   collectionName: Collection,
-  seedData: Entry[]
+  seedData: Type[]
 ): Promise<boolean> {
   try {
     const collectionRef = collection(db, collectionName);
-    seedData.forEach(async (doc) => {
-      await addDoc(collectionRef, doc);
-    });
+    const promises = Promise.all(
+      seedData.map((entry) => {
+        const docRef = doc(collectionRef, entry.id);
+        return setDoc(docRef, entry); // Need to use setDoc rather than addDoc to use specific ids
+      })
+    );
+    await promises;
     console.log("Added docs to collection: ", collectionName);
     return true;
   } catch (error) {
     console.error("Error seeding collection: ", collectionName, " ", error);
     throw error;
   }
+}
+
+const dropResult = await dropCollection("Music");
+// const seedResult = await seedCollection("Music", musicSeedData);
+
+console.log("Finished Seeding", dropResult);
+
+// Delete Firebase app so Node can exit without waiting
+try {
+  await deleteApp(getApp());
+  console.log("Firebase app deleted, exiting.");
+} catch (err) {
+  console.error("Error deleting Firebase app:", err);
 }

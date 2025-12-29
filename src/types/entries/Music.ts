@@ -1,8 +1,9 @@
 import type { EntryBase } from "./EntryBase";
 
 export interface Music extends EntryBase {
+  category: "Music";
   releaseDate: Date;
-  name: string;
+  albumName: string;
   bandcampLink?: string;
   artistNames: string[];
   albumArtUrl?: string;
