@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PostCard from "../components/PostCard";
 import type { BasicPostInfo } from "../types/BasicPostInfo";
-import { getAllPosts } from "../services/postService";
+import { getAllPosts } from "../services/entryService";
 
 function Gigs() {
   const [posts, setPosts] = useState<BasicPostInfo[]>();

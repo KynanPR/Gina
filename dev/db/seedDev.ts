@@ -1,4 +1,4 @@
-import db from "../../src/firebase";
+import db from "../../src/firebase.ts";
 import { getApp, deleteApp } from "firebase/app";
 import {
   addDoc,
@@ -12,6 +12,8 @@ import {
 import type { Collection } from "../../src/types/db/Collection";
 import type { Entry } from "../../src/types/entries";
 import musicSeedData from "./musicSeedData.ts";
+import gigSeedData from "./gigSeedData.ts";
+import instrumentSeedData from "./instrumentSeedData.ts";
 
 async function dropCollection(collectionName: Collection): Promise<boolean> {
   try {
@@ -58,10 +60,20 @@ async function seedCollection<Type extends Entry>(
   }
 }
 
-const dropResult = await dropCollection("Music");
-// const seedResult = await seedCollection("Music", musicSeedData);
+// Seed Music
+const musicDropResult = await dropCollection("Music");
+const musicSeedResult = await seedCollection("Music", musicSeedData);
 
-console.log("Finished Seeding", dropResult);
+// Seed Instruments
+const instrumentDropResult = await dropCollection("Instruments");
+const instrumentSeedResult = await seedCollection("Instruments", instrumentSeedData);
+
+// Seed Gigs
+const gigDropResult = await dropCollection("Gigs");
+const gigSeedResult = await seedCollection("Gigs", gigSeedData);
+
+
+console.log("Finished Seeding");
 
 // Delete Firebase app so Node can exit without waiting
 try {
