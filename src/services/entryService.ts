@@ -9,32 +9,48 @@ import {
   doc,
   query,
   where,
+  collectionGroup,
 } from "firebase/firestore";
-import type { BasicPostInfo } from "../types/BasicPostInfo";
 import type { EntryCategory } from "../types/entries/EntryCategory";
+import type { Entry, Gig, Instrument, Music } from "../types/entries";
+import getCollectionRef from "../utils/getCollection";
+
+// Type Guard Functions
+function isTypeEntry(possiblyEntry: any, entryTypeToCheck: EntryCategory): possiblyEntry is (Music|Instrument|Gig) {
+  // Not airtight, but as good as I can come up with right now
+  // TODO - Find/make a more solid set of checks to ensure it matches the type
+  return possiblyEntry && possiblyEntry.category == entryTypeToCheck;
+}
 
 // Create a new post
-export const addPost = async (
-  post: Omit<BasicPostInfo, "id">
-): Promise<string> => {
+export async function addEntry (
+  entry: Omit<Entry, "id">
+): Promise<string> {
   try {
-    const docRef = await addDoc(collection(db, "posts"), post);
+    const collectionRef = getCollectionRef(entry.category)
+    const docRef = await addDoc(collectionRef, entry);
     return docRef.id;
   } catch (error) {
-    console.error("Error adding post:", error);
+    console.error("Error adding entry:", error);
     throw error;
   }
 };
 
 // Read a single post
-export const getPost = async (
-  postId: string
-): Promise<BasicPostInfo | null> => {
+export async function getEntry<Type extends Entry> (
+  entryId: string,
+  entryCategory: EntryCategory
+): Promise<Type | null> {
   try {
-    const postDoc = await getDoc(doc(db, "Posts", postId));
-    if (postDoc.exists()) {
-      return { postId: postDoc.id, ...postDoc.data() } as BasicPostInfo;
-    } else {
+    const collectionRef = getCollectionRef(entryCategory);
+    const entryDoc = await getDoc(doc(collectionRef, entryId));
+    if (entryDoc.exists()) {
+      const foundEntry = { id: entryDoc.id, ...entryDoc.data() };
+
+      if (isTypeEntry(foundEntry, entryCategory)) {
+        // Have to type assert as firebase doesn't give tools for proper typesafety
+        return foundEntry as Type;
+      }
       return null;
     }
   } catch (error) {
